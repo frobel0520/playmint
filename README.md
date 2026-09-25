@@ -6,7 +6,7 @@ https://playmint.pages.dev/
 
 | 遊戲 | 網站 | Repo | 語言 |
 | --- | --- | --- | --- |
-| Tensift（每日分類解謎） | [tensift.pages.dev](https://tensift.pages.dev/) | [tensift](https://github.com/frobel0520/tensift) | English、简体中文、Español |
+| Tensift（每日分類解謎） | [tensift.pages.dev](https://tensift.pages.dev/) | [tensift](https://github.com/frobel0520/tensift) | English、繁體中文、Español |
 | 左腳踩右腳：永動機研究所 | [left-foot-right-foot](https://frobel0520.github.io/left-foot-right-foot/) | [left-foot-right-foot](https://github.com/frobel0520/left-foot-right-foot) | 繁體中文 |
 
 兩款遊戲的頁首導覽都有「更多遊戲」連回這裡。
