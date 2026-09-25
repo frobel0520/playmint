@@ -8,147 +8,133 @@
 <meta property="og:title" content="Playmint">
 <meta property="og:description" content="打開瀏覽器就能玩的解謎小品。">
 <title>Playmint</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232b8069'/%3E%3Cpath d='M9 23c0-8 5-13 14-14-1 9-6 14-14 14z' fill='%23f3f0e8'/%3E%3Cpath d='M9 23l8-8' stroke='%232b8069' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2317211d'/%3E%3Cpath d='M20 12h15a13 13 0 0 1 0 26h-6v14h-9z' fill='%23df5b3f'/%3E%3Ccircle cx='34' cy='25' r='4' fill='%2317211d'/%3E%3Ccircle cx='46' cy='47' r='4' fill='%23fffcf4'/%3E%3C/svg%3E">
 <style>
-/* 兩款遊戲共用的配色：紙底、墨綠字、橘紅重點色；薄荷綠是 Playmint 自己的品牌色。 */
+/* 配色與字體沿用 Tensift 的原始主題（米色紙），固定淺色，不跟隨系統深色模式。 */
 :root {
+  color-scheme: light;
   --paper: #f3f0e8;
+  --paper-deep: #e9e4d8;
   --surface: #fffcf4;
   --ink: #17211d;
-  --muted: #5f6862;
-  --line: #d3cec1;
+  --muted: #69726c;
+  --line: #c9c4b7;
+  --line-strong: #969c91;
   --accent: #df5b3f;
-  --accent-ink: #ad3c26;
-  --mint: #2b8069;
-  --mint-soft: #d9ebe2;
+  --accent-dark: #ad3c26;
+  --focus: #285f91;
+  --grid-line: rgba(23, 33, 29, .035);
+  --tape: rgba(217, 199, 108, .58);
+  --shadow-high: 0 18px 45px rgba(23, 33, 29, .14);
   --lr-header: #17201f;
   --lr-header-ink: #faf5e9;
   --lr-accent: #e85d2a;
-  --shadow: 0 1px 0 rgba(23, 33, 29, .06), 0 10px 28px rgba(23, 33, 29, .08);
   --serif: Georgia, "Times New Roman", "Noto Serif TC", serif;
-  --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Segoe UI", system-ui, sans-serif;
-  --mono: ui-monospace, "SF Mono", Consolas, "Courier New", monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --paper: #121916;
-    --surface: #1b2420;
-    --ink: #f0efe7;
-    --muted: #aab6ae;
-    --line: #33413a;
-    --accent: #ef7657;
-    --accent-ink: #ffad91;
-    --mint: #6fcfa8;
-    --mint-soft: #1f3a30;
-    --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 10px 28px rgba(0, 0, 0, .35);
-  }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #121916;
-  --surface: #1b2420;
-  --ink: #f0efe7;
-  --muted: #aab6ae;
-  --line: #33413a;
-  --accent: #ef7657;
-  --accent-ink: #ffad91;
-  --mint: #6fcfa8;
-  --mint-soft: #1f3a30;
-  --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 10px 28px rgba(0, 0, 0, .35);
+  --sans: "Trebuchet MS", "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
 }
 * { box-sizing: border-box; }
+html { min-width: 320px; background: var(--paper); }
 body {
+  min-width: 320px;
+  min-height: 100vh;
   margin: 0;
-  background: var(--paper);
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    var(--paper);
+  background-size: 100% 32px;
   color: var(--ink);
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-a { color: var(--accent-ink); text-underline-offset: 3px; }
-:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
-.wrap {
-  max-width: 980px;
+a { color: var(--ink); text-underline-offset: 4px; }
+a:hover { color: var(--accent-dark); }
+a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+h1, h2, p { text-wrap: pretty; }
+
+.shell {
+  width: min(100% - 32px, 1040px);
   margin: 0 auto;
-  padding: 56px 20px 64px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  padding: clamp(28px, 6vw, 72px) 0 64px;
 }
 
-header { display: flex; flex-direction: column; gap: 10px; }
-.eyebrow {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: .78rem;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--mint);
+.masthead {
+  padding-bottom: 28px;
+  border-bottom: 2px solid var(--ink);
 }
-.eyebrow::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 50% 0;
-  background: var(--mint);
+.eyebrow,
+.kicker,
+.facts dt {
+  margin: 0;
+  color: var(--accent-dark);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
 }
 h1 {
-  margin: 0;
+  margin: 8px 0 0;
   font-family: var(--serif);
-  font-size: clamp(2.8rem, 9vw, 4.6rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -.02em;
+  font-size: clamp(3.2rem, 12vw, 7rem);
+  letter-spacing: -.07em;
+  line-height: .85;
 }
-h1 span { color: var(--mint); }
-.lede { margin: 6px 0 0; max-width: 34em; font-size: 1.1rem; }
-.lede-en { margin: 0; color: var(--muted); font-size: .95rem; }
 
 .games {
   list-style: none;
-  margin: 0;
+  margin: 48px 0 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 36px 32px;
 }
 .game {
+  position: relative;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--ink);
+  border-radius: 24px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
+  box-shadow: var(--shadow-high);
+  transform: rotate(-.4deg);
+}
+.game:nth-child(even) { transform: rotate(.4deg); }
+.game::before {
+  position: absolute;
+  top: -9px;
+  left: 38px;
+  z-index: 1;
+  width: 72px;
+  height: 20px;
+  background: var(--tape);
+  content: "";
+  transform: rotate(-3deg);
 }
 .cover {
-  min-height: 150px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 6px;
-  padding: 22px 22px 18px;
+  padding: 26px 24px 18px;
+  border-radius: 23px 23px 0 0;
+  border-bottom: 1px solid var(--ink);
 }
 .cover-tensift {
   background:
-    repeating-linear-gradient(0deg, rgba(23, 33, 29, .045) 0 1px, transparent 1px 28px),
+    linear-gradient(rgba(23, 33, 29, .05) 1px, transparent 1px),
     #f3f0e8;
+  background-size: 100% 24px;
   color: #17211d;
-  border-bottom: 2px solid #17211d;
 }
 .cover-tensift .kicker { color: #ad3c26; }
 .cover-tensift .mark {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 3.1rem;
+  font-size: 3.2rem;
   font-weight: 700;
-  line-height: .95;
-  letter-spacing: -.03em;
+  line-height: .85;
+  letter-spacing: -.07em;
 }
 .cover-lr {
   flex-direction: row;
@@ -162,92 +148,95 @@ h1 span { color: var(--mint); }
 .cover-lr .badge {
   display: grid;
   place-items: center;
-  width: 58px;
-  height: 58px;
+  width: 56px;
+  height: 56px;
   flex: 0 0 auto;
   border: 2px solid currentColor;
-  font: 800 16px/1 var(--mono);
+  font: 800 16px/1 "Courier New", monospace;
   transform: rotate(-3deg);
 }
-.cover-lr .mark { font-size: 2rem; font-weight: 700; line-height: 1.2; }
-.kicker {
-  margin: 0;
-  font-family: var(--mono);
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
 .cover-lr .kicker { color: color-mix(in srgb, var(--lr-header-ink) 72%, transparent); }
+.cover-lr .mark { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
 
 .body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px 22px 18px;
+  gap: 14px;
+  padding: 22px 24px 22px;
 }
-.body h2 { margin: 0; font-size: 1.25rem; line-height: 1.4; }
-.body h2 small { display: block; color: var(--muted); font-size: .85rem; font-weight: 500; }
-.body p { margin: 0; color: var(--muted); font-size: .95rem; }
+.body h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+.body h2 small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .85rem;
+  font-weight: 400;
+}
+.body p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.6; }
 .facts {
   margin: 0;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 4px 14px;
-  font-size: .88rem;
+  align-items: baseline;
+  gap: 6px 16px;
+  font-size: .9rem;
 }
-.facts dt { color: var(--muted); }
 .facts dd { margin: 0; }
-.links {
+.actions {
   margin-top: auto;
-  padding-top: 14px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 20px;
-  font-size: .92rem;
+  gap: 10px;
 }
-.play {
+.button {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 16px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: var(--mint);
-  color: #fff;
-  font-weight: 700;
+  background: transparent;
+  color: var(--ink);
+  font-size: .82rem;
+  font-weight: 800;
   text-decoration: none;
+  transition: transform 130ms ease, background 130ms ease;
 }
-.play:hover { filter: brightness(1.08); }
-:root[data-theme="dark"] .play { color: #0f1a15; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .play { color: #0f1a15; }
+.button:hover { background: var(--paper-deep); color: var(--ink); }
+.button:active { transform: translateY(2px); }
+.button-primary {
+  border-color: var(--accent-dark);
+  background: var(--accent);
+  color: #fffdf6;
+  box-shadow: 0 3px 0 var(--accent-dark);
 }
-
-footer {
-  border-top: 1px solid var(--line);
-  padding-top: 16px;
-  font-size: .85rem;
-  color: var(--muted);
-}
-footer p { margin: 0; }
+.button-primary:hover { background: var(--accent-dark); color: #fffdf6; }
 
 @media (max-width: 720px) {
-  .wrap { padding-block: 36px 48px; gap: 28px; }
-  .games { grid-template-columns: minmax(0, 1fr); }
-  .cover { min-height: 120px; }
+  .games { grid-template-columns: minmax(0, 1fr); margin-top: 40px; gap: 32px; }
+  .cover { min-height: 116px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game, .game:nth-child(even) { transform: none; }
+  .button { transition: none; }
 }
 </style>
 </head>
 <body>
-<main class="wrap">
-  <header>
+<main class="shell">
+  <header class="masthead">
     <p class="eyebrow">Game shelf · 遊戲小品</p>
-    <h1>Play<span>mint</span></h1>
-    <p class="lede">打開瀏覽器就能玩的解謎小品。每一款都是獨立的網站，不用安裝、不用註冊，進度存在你的裝置上。</p>
-    <p class="lede-en">Bite-sized puzzle games. Open, play, done.</p>
+    <h1>Playmint</h1>
   </header>
 
   <ul class="games">
@@ -263,9 +252,9 @@ footer p { margin: 0; }
           <dt>節奏</dt><dd>每日一題</dd>
           <dt>語言</dt><dd>English · 简体中文 · Español</dd>
         </dl>
-        <div class="links">
-          <a class="play" href="https://tensift.pages.dev/">開始玩 →</a>
-          <a href="https://github.com/frobel0520/tensift">GitHub</a>
+        <div class="actions">
+          <a class="button button-primary" href="https://tensift.pages.dev/">開始玩 →</a>
+          <a class="button" href="https://github.com/frobel0520/tensift">GitHub</a>
         </div>
       </div>
     </li>
@@ -285,17 +274,13 @@ footer p { margin: 0; }
           <dt>節奏</dt><dd>十關，隨時接著玩</dd>
           <dt>語言</dt><dd>繁體中文</dd>
         </dl>
-        <div class="links">
-          <a class="play" href="https://frobel0520.github.io/left-foot-right-foot/">開始玩 →</a>
-          <a href="https://github.com/frobel0520/left-foot-right-foot">GitHub</a>
+        <div class="actions">
+          <a class="button button-primary" href="https://frobel0520.github.io/left-foot-right-foot/">開始玩 →</a>
+          <a class="button" href="https://github.com/frobel0520/left-foot-right-foot">GitHub</a>
         </div>
       </div>
     </li>
   </ul>
-
-  <footer>
-    <p>每款遊戲的程式碼各自獨立，這裡只放連結。原始碼公開於 <a href="https://github.com/frobel0520/playmint">github.com/frobel0520/playmint</a>。</p>
-  </footer>
 </main>
 </body>
 </html>
