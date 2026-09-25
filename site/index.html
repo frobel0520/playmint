@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<script src="https://harbor-1wk.pages.dev/embed/maintenance.js" data-project="playmint"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Playmint：打開瀏覽器就能玩的解謎小品。每日分類解謎 Tensift、數值閉環解謎《左腳踩右腳》。">
+<meta property="og:title" content="Playmint">
+<meta property="og:description" content="打開瀏覽器就能玩的解謎小品。">
+<title>Playmint</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232b8069'/%3E%3Cpath d='M9 23c0-8 5-13 14-14-1 9-6 14-14 14z' fill='%23f3f0e8'/%3E%3Cpath d='M9 23l8-8' stroke='%232b8069' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+/* 兩款遊戲共用的配色：紙底、墨綠字、橘紅重點色；薄荷綠是 Playmint 自己的品牌色。 */
+:root {
+  --paper: #f3f0e8;
+  --surface: #fffcf4;
+  --ink: #17211d;
+  --muted: #5f6862;
+  --line: #d3cec1;
+  --accent: #df5b3f;
+  --accent-ink: #ad3c26;
+  --mint: #2b8069;
+  --mint-soft: #d9ebe2;
+  --lr-header: #17201f;
+  --lr-header-ink: #faf5e9;
+  --lr-accent: #e85d2a;
+  --shadow: 0 1px 0 rgba(23, 33, 29, .06), 0 10px 28px rgba(23, 33, 29, .08);
+  --serif: Georgia, "Times New Roman", "Noto Serif TC", serif;
+  --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Segoe UI", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #121916;
+    --surface: #1b2420;
+    --ink: #f0efe7;
+    --muted: #aab6ae;
+    --line: #33413a;
+    --accent: #ef7657;
+    --accent-ink: #ffad91;
+    --mint: #6fcfa8;
+    --mint-soft: #1f3a30;
+    --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 10px 28px rgba(0, 0, 0, .35);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #121916;
+  --surface: #1b2420;
+  --ink: #f0efe7;
+  --muted: #aab6ae;
+  --line: #33413a;
+  --accent: #ef7657;
+  --accent-ink: #ffad91;
+  --mint: #6fcfa8;
+  --mint-soft: #1f3a30;
+  --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 10px 28px rgba(0, 0, 0, .35);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 56px 20px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+header { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+.eyebrow::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50% 0;
+  background: var(--mint);
+}
+h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 9vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+h1 span { color: var(--mint); }
+.lede { margin: 6px 0 0; max-width: 34em; font-size: 1.1rem; }
+.lede-en { margin: 0; color: var(--muted); font-size: .95rem; }
+
+.games {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.cover {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 22px 22px 18px;
+}
+.cover-tensift {
+  background:
+    repeating-linear-gradient(0deg, rgba(23, 33, 29, .045) 0 1px, transparent 1px 28px),
+    #f3f0e8;
+  color: #17211d;
+  border-bottom: 2px solid #17211d;
+}
+.cover-tensift .kicker { color: #ad3c26; }
+.cover-tensift .mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.1rem;
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.03em;
+}
+.cover-lr {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  background: var(--lr-header);
+  color: var(--lr-header-ink);
+  border-bottom: 5px solid var(--lr-accent);
+}
+.cover-lr .badge {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  border: 2px solid currentColor;
+  font: 800 16px/1 var(--mono);
+  transform: rotate(-3deg);
+}
+.cover-lr .mark { font-size: 2rem; font-weight: 700; line-height: 1.2; }
+.kicker {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.cover-lr .kicker { color: color-mix(in srgb, var(--lr-header-ink) 72%, transparent); }
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 22px 18px;
+}
+.body h2 { margin: 0; font-size: 1.25rem; line-height: 1.4; }
+.body h2 small { display: block; color: var(--muted); font-size: .85rem; font-weight: 500; }
+.body p { margin: 0; color: var(--muted); font-size: .95rem; }
+.facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 14px;
+  font-size: .88rem;
+}
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.links {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  font-size: .92rem;
+}
+.play {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--mint);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.play:hover { filter: brightness(1.08); }
+:root[data-theme="dark"] .play { color: #0f1a15; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .play { color: #0f1a15; }
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  font-size: .85rem;
+  color: var(--muted);
+}
+footer p { margin: 0; }
+
+@media (max-width: 720px) {
+  .wrap { padding-block: 36px 48px; gap: 28px; }
+  .games { grid-template-columns: minmax(0, 1fr); }
+  .cover { min-height: 120px; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <p class="eyebrow">Game shelf · 遊戲小品</p>
+    <h1>Play<span>mint</span></h1>
+    <p class="lede">打開瀏覽器就能玩的解謎小品。每一款都是獨立的網站，不用安裝、不用註冊，進度存在你的裝置上。</p>
+    <p class="lede-en">Bite-sized puzzle games. Open, play, done.</p>
+  </header>
+
+  <ul class="games">
+    <li class="game">
+      <div class="cover cover-tensift">
+        <p class="kicker">Daily sorting puzzle</p>
+        <span class="mark">Tensift</span>
+      </div>
+      <div class="body">
+        <h2>Tensift<small>每日分類解謎</small></h2>
+        <p>十個物品、四組、一個隱藏規則。把物品分成 1、2、3、4 個一組，猜出它們背後的分類方式。每天一題，可以用提示，也能一鍵看答案。</p>
+        <dl class="facts">
+          <dt>節奏</dt><dd>每日一題</dd>
+          <dt>語言</dt><dd>English · 简体中文 · Español</dd>
+        </dl>
+        <div class="links">
+          <a class="play" href="https://tensift.pages.dev/">開始玩 →</a>
+          <a href="https://github.com/frobel0520/tensift">GitHub</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="game">
+      <div class="cover cover-lr">
+        <span class="badge" aria-hidden="true">L/R</span>
+        <div>
+          <p class="kicker">Impossible Motion Lab</p>
+          <span class="mark">左腳踩右腳</span>
+        </div>
+      </div>
+      <div class="body">
+        <h2>左腳踩右腳：永動機研究所<small>Resource-loop puzzle</small></h2>
+        <p>把有限零件分配給互相連結的裝置，讓數值繞完一圈後不減反增。十個風格迥異的世界，從失控鍋爐房一路解到宇宙自舉。</p>
+        <dl class="facts">
+          <dt>節奏</dt><dd>十關，隨時接著玩</dd>
+          <dt>語言</dt><dd>繁體中文</dd>
+        </dl>
+        <div class="links">
+          <a class="play" href="https://frobel0520.github.io/left-foot-right-foot/">開始玩 →</a>
+          <a href="https://github.com/frobel0520/left-foot-right-foot">GitHub</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <footer>
+    <p>每款遊戲的程式碼各自獨立，這裡只放連結。原始碼公開於 <a href="https://github.com/frobel0520/playmint">github.com/frobel0520/playmint</a>。</p>
+  </footer>
+</main>
+</body>
+</html>
