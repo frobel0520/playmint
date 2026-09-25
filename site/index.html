@@ -64,8 +64,7 @@ h1, h2, p { text-wrap: pretty; }
   border-bottom: 2px solid var(--ink);
 }
 .eyebrow,
-.kicker,
-.facts dt {
+.kicker {
   margin: 0;
   color: var(--accent-dark);
   font-size: .74rem;
@@ -89,6 +88,7 @@ h1 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 36px 32px;
 }
+/* 整張卡片都可以點：「開始玩」連結的 ::after 蓋住整張卡片，鍵盤只有一個停駐點。 */
 .game {
   position: relative;
   display: flex;
@@ -98,21 +98,28 @@ h1 {
   background: var(--surface);
   box-shadow: var(--shadow-high);
   transform: rotate(-.4deg);
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 .game:nth-child(even) { transform: rotate(.4deg); }
+.game:hover,
+.game:focus-within {
+  transform: translateY(-4px) rotate(0deg);
+  box-shadow: 0 24px 50px rgba(23, 33, 29, .18);
+}
 .game::before {
   position: absolute;
   top: -9px;
   left: 38px;
-  z-index: 1;
+  z-index: 2;
   width: 72px;
   height: 20px;
   background: var(--tape);
   content: "";
   transform: rotate(-3deg);
+  pointer-events: none;
 }
 .cover {
-  min-height: 140px;
+  min-height: 132px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -121,6 +128,7 @@ h1 {
   border-radius: 23px 23px 0 0;
   border-bottom: 1px solid var(--ink);
 }
+.cover h2 { margin: 0; font-weight: 700; }
 .cover-tensift {
   background:
     linear-gradient(rgba(23, 33, 29, .05) 1px, transparent 1px),
@@ -129,10 +137,9 @@ h1 {
   color: #17211d;
 }
 .cover-tensift .kicker { color: #ad3c26; }
-.cover-tensift .mark {
+.cover-tensift h2 {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 3.2rem;
-  font-weight: 700;
   line-height: .85;
   letter-spacing: -.07em;
 }
@@ -156,106 +163,93 @@ h1 {
   transform: rotate(-3deg);
 }
 .cover-lr .kicker { color: color-mix(in srgb, var(--lr-header-ink) 72%, transparent); }
-.cover-lr .mark { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
+.cover-lr h2 { font-size: 1.9rem; line-height: 1.2; }
 
 .body {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 22px 24px 22px;
+  padding: 18px 24px 24px;
 }
-.body h2 {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  line-height: 1.25;
-}
-.body h2 small {
-  display: block;
-  margin-top: 4px;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: .85rem;
-  font-weight: 400;
-}
-.body p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.6; }
-.facts {
-  margin: 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  gap: 6px 16px;
-  font-size: .9rem;
-}
-.facts dd { margin: 0; }
-.actions {
-  margin-top: auto;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
+.subtitle { margin: 0; font-weight: 700; }
+.chips {
+  list-style: none;
+  margin: -4px 0 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
-.button {
-  display: inline-flex;
-  align-items: center;
-  min-height: 46px;
-  padding: 0 18px;
+.chips li {
+  padding: 2px 10px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: transparent;
-  color: var(--ink);
-  font-size: .82rem;
-  font-weight: 800;
-  text-decoration: none;
-  transition: transform 130ms ease, background 130ms ease;
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.6;
 }
-.button:hover { background: var(--paper-deep); color: var(--ink); }
-.button:active { transform: translateY(2px); }
-.button-primary {
-  border-color: var(--accent-dark);
+.play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 56px;
+  border: 1px solid var(--accent-dark);
+  border-radius: 999px;
   background: var(--accent);
   color: #fffdf6;
   box-shadow: 0 3px 0 var(--accent-dark);
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 130ms ease, transform 130ms ease, box-shadow 130ms ease;
 }
-.button-primary:hover { background: var(--accent-dark); color: #fffdf6; }
+.play::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 24px;
+  content: "";
+}
+.game:hover .play { background: var(--accent-dark); }
+.play:hover { color: #fffdf6; }
+.play:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--accent-dark); }
+.play:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.game:has(.play:focus-visible) { outline: 3px solid var(--focus); outline-offset: 4px; }
+.description { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.6; }
 
 @media (max-width: 720px) {
   .games { grid-template-columns: minmax(0, 1fr); margin-top: 40px; gap: 32px; }
-  .cover { min-height: 116px; }
+  .cover { min-height: 112px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .game, .game:nth-child(even) { transform: none; }
-  .button { transition: none; }
+  .game, .game:nth-child(even), .game:hover, .game:focus-within { transform: none; transition: none; }
+  .play { transition: none; }
 }
 </style>
 </head>
 <body>
 <main class="shell">
   <header class="masthead">
-    <p class="eyebrow">Game shelf · 遊戲小品</p>
+    <p class="eyebrow"><span lang="en">Game shelf</span> · 遊戲小品</p>
     <h1>Playmint</h1>
   </header>
 
   <ul class="games">
     <li class="game">
       <div class="cover cover-tensift">
-        <p class="kicker">Daily sorting puzzle</p>
-        <span class="mark">Tensift</span>
+        <p class="kicker" lang="en">Daily sorting puzzle</p>
+        <h2 lang="en">Tensift</h2>
       </div>
       <div class="body">
-        <h2>Tensift<small>每日分類解謎</small></h2>
-        <p>十個物品、四組、一個隱藏規則。把物品分成 1、2、3、4 個一組，猜出它們背後的分類方式。每天一題，可以用提示，也能一鍵看答案。</p>
-        <dl class="facts">
-          <dt>節奏</dt><dd>每日一題</dd>
-          <dt>語言</dt><dd>English · 简体中文 · Español</dd>
-        </dl>
-        <div class="actions">
-          <a class="button button-primary" href="https://tensift.pages.dev/">開始玩 →</a>
-          <a class="button" href="https://github.com/frobel0520/tensift">GitHub</a>
-        </div>
+        <p class="subtitle">每日分類解謎</p>
+        <ul class="chips" aria-label="遊戲資訊">
+          <li>每日一題</li>
+          <li>English · 简体中文 · Español</li>
+        </ul>
+        <a class="play" href="https://tensift.pages.dev/">開始玩 Tensift <span aria-hidden="true">→</span></a>
+        <p class="description">十個物品、四組、一個隱藏規則。把物品分成 1、2、3、4 個一組，猜出它們背後的分類方式。可以用一次提示，也能直接看答案。</p>
       </div>
     </li>
 
@@ -263,21 +257,19 @@ h1 {
       <div class="cover cover-lr">
         <span class="badge" aria-hidden="true">L/R</span>
         <div>
-          <p class="kicker">Impossible Motion Lab</p>
-          <span class="mark">左腳踩右腳</span>
+          <p class="kicker" lang="en">Impossible Motion Lab</p>
+          <h2>左腳踩右腳</h2>
         </div>
       </div>
       <div class="body">
-        <h2>左腳踩右腳：永動機研究所<small>Resource-loop puzzle</small></h2>
-        <p>把有限零件分配給互相連結的裝置，讓數值繞完一圈後不減反增。十個風格迥異的世界，從失控鍋爐房一路解到宇宙自舉。</p>
-        <dl class="facts">
-          <dt>節奏</dt><dd>十關，隨時接著玩</dd>
-          <dt>語言</dt><dd>繁體中文</dd>
-        </dl>
-        <div class="actions">
-          <a class="button button-primary" href="https://frobel0520.github.io/left-foot-right-foot/">開始玩 →</a>
-          <a class="button" href="https://github.com/frobel0520/left-foot-right-foot">GitHub</a>
-        </div>
+        <p class="subtitle">永動機研究所 · 數值閉環解謎</p>
+        <ul class="chips" aria-label="遊戲資訊">
+          <li>十關</li>
+          <li>進度自動儲存</li>
+          <li>繁體中文</li>
+        </ul>
+        <a class="play" href="https://frobel0520.github.io/left-foot-right-foot/">開始玩左腳踩右腳 <span aria-hidden="true">→</span></a>
+        <p class="description">把有限零件分配給互相連結的裝置，讓數值繞完一圈後不減反增。十個風格迥異的世界，從失控鍋爐房一路解到宇宙自舉。</p>
       </div>
     </li>
   </ul>
