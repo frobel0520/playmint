@@ -1,8 +1,12 @@
 # Playmint
 
+> 打開瀏覽器就能玩的解謎小品入口。每款遊戲都是獨立的 repo 與網站，這裡只放連結，不收納任何遊戲的程式或資料。
+
+## 概覽
+
 https://playmint.pages.dev/
 
-打開瀏覽器就能玩的解謎小品入口。每款遊戲都是獨立的 repo 與網站，這裡只放連結，不收納任何遊戲的程式或資料。
+
 
 | 遊戲 | 網站 | Repo | 語言 |
 | --- | --- | --- | --- |
@@ -10,6 +14,20 @@ https://playmint.pages.dev/
 | 左腳踩右腳：永動機研究所 | [left-foot-right-foot](https://frobel0520.github.io/left-foot-right-foot/) | [left-foot-right-foot](https://github.com/frobel0520/left-foot-right-foot) | 繁體中文 |
 
 兩款遊戲的頁首導覽都有「更多遊戲」連回這裡。
+
+## 主要功能／內容
+
+解謎遊戲入口頁，列出 Tensift 與《左腳踩右腳》的網站與原始碼連結；每款遊戲維持獨立 repository。
+
+## 現況與已知限制
+
+目前入口列出兩款遊戲；遊戲本體與資料由各自的 repository 維護。
+
+## 授權與來源
+
+Repository 根目錄未見授權檔；此 README 不另行宣告使用或再散布權利。
+
+---
 
 ## 共用配色
 
