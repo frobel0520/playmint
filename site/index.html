@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script src="https://harbor-1wk.pages.dev/embed/maintenance.js" data-project="playmint"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Playmint：打開瀏覽器就能玩的解謎小品。每日分類解謎 Tensift、數值閉環解謎《左腳踩右腳》。">
+<meta name="description" content="Playmint：打開瀏覽器就能玩的解謎小品。每日分類解謎 Tensift、數值閉環解謎《左腳踩右腳》、貓咪收納《小日子收納》。">
 <meta property="og:title" content="Playmint">
 <meta property="og:description" content="打開瀏覽器就能玩的解謎小品。">
 <title>Playmint</title>
@@ -164,6 +164,25 @@ h1 {
 }
 .cover-lr .kicker { color: color-mix(in srgb, var(--lr-header-ink) 72%, transparent); }
 .cover-lr h2 { font-size: 1.9rem; line-height: 1.2; }
+/* 小日子收納沿用遊戲本身的奶油底、灰綠字與 ✳ 記號。 */
+.cover-ld {
+  background: radial-gradient(ellipse at 12% 15%, #fffbef, transparent 60%), #f5f1e6;
+  color: #5c6250;
+}
+.cover-ld .kicker { color: #809470; }
+.cover-ld h2 {
+  font-family: "Noto Serif TC", "PingFang TC", serif;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  letter-spacing: .05em;
+}
+.cover-ld h2 span {
+  display: inline-block;
+  margin-left: 10px;
+  color: #bdad88;
+  font-family: Georgia, serif;
+  transform: rotate(12deg);
+}
 
 .body {
   flex: 1;
@@ -270,6 +289,24 @@ h1 {
         </ul>
         <a class="play" href="https://frobel0520.github.io/left-foot-right-foot/">開始玩左腳踩右腳 <span aria-hidden="true">→</span></a>
         <p class="description">把有限零件分配給互相連結的裝置，讓數值繞完一圈後不減反增。十個風格迥異的世界，從失控鍋爐房一路解到宇宙自舉。</p>
+      </div>
+    </li>
+
+    <li class="game">
+      <div class="cover cover-ld">
+        <p class="kicker" lang="en">Little Days · A sunny afternoon</p>
+        <h2>小日子收納<span aria-hidden="true">✳</span></h2>
+      </div>
+      <div class="body">
+        <p class="subtitle">貓咪收納小品 · 自由擺放</p>
+        <ul class="chips" aria-label="遊戲資訊">
+          <li>三關故事</li>
+          <li>試玩版</li>
+          <li>進度自動儲存</li>
+          <li>繁體中文</li>
+        </ul>
+        <a class="play" href="https://playmint-little-days.pages.dev/">開始玩小日子收納 <span aria-hidden="true">→</span></a>
+        <p class="description">整理搬家房間、街角花店與舊書店，把小物放到喜歡的位置，慢慢認識奶油、芝麻與墨墨三隻貓。沒有倒數，也沒有標準答案。</p>
       </div>
     </li>
   </ul>
