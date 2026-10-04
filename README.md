@@ -12,16 +12,17 @@ https://playmint.pages.dev/
 | --- | --- | --- | --- |
 | Tensift（每日分類解謎） | [tensift.pages.dev](https://tensift.pages.dev/) | [tensift](https://github.com/frobel0520/tensift) | English、繁體中文、Español |
 | 左腳踩右腳：永動機研究所 | [left-foot-right-foot](https://frobel0520.github.io/left-foot-right-foot/) | [left-foot-right-foot](https://github.com/frobel0520/left-foot-right-foot) | 繁體中文 |
+| 小日子收納（貓咪收納，試玩版） | [playmint-little-days.pages.dev](https://playmint-little-days.pages.dev/) | [little-days](https://github.com/frobel0520/little-days) | 繁體中文 |
 
-兩款遊戲的頁首導覽都有「更多遊戲」連回這裡。
+Tensift 與《左腳踩右腳》的頁首導覽有「更多遊戲」連回這裡；小日子收納由頁首的「p. playmint」標誌連回，抽屜小品頁另有「更多遊戲」。
 
 ## 主要功能／內容
 
-解謎遊戲入口頁，列出 Tensift 與《左腳踩右腳》的網站與原始碼連結；每款遊戲維持獨立 repository。
+解謎遊戲入口頁，列出 Tensift、《左腳踩右腳》與《小日子收納》的網站與原始碼連結；每款遊戲維持獨立 repository。
 
 ## 現況與已知限制
 
-目前入口列出兩款遊戲；遊戲本體與資料由各自的 repository 維護。
+目前入口列出三款遊戲，小日子收納仍是三關試玩版；遊戲本體與資料由各自的 repository 維護。
 
 ## 授權與來源
 
