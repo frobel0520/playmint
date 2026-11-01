@@ -26,6 +26,8 @@
 - 開發規範：frobel0520/harbor 的 `standards/DevelopmentStandards.md`。
 - 部署：frobel0520/harbor 的 `standards/DeploymentHandbook.md`（範本在 `standards/deployment-templates/`）。
 - 本 repo 的規則或現況與上述文件衝突時，以權威文件為準；不符合的地方列為本 repo 待辦。repo 既有慣例（例如分支命名）依開發規範的規定保留。
-- 專案級別：個人級
+- 專案級別：公開級
 <!-- END:shared-standards -->
+
+級別說明：遊戲入口站公開部署在 Cloudflare Pages（`playmint.pages.dev`），沒有登入或使用者資料，所以是公開級（2026-11-01 由個人級調整）。
 
