@@ -4,15 +4,17 @@
 <meta charset="utf-8">
 <script src="https://harbor-1wk.pages.dev/embed/maintenance.js" data-project="playmint"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <meta name="description" content="Playmint：打開瀏覽器就能玩的解謎小品。每日分類解謎 Tensift、數值閉環解謎《左腳踩右腳》、貓咪收納《小日子收納》。">
 <meta property="og:title" content="Playmint">
 <meta property="og:description" content="打開瀏覽器就能玩的解謎小品。">
 <title>Playmint</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2317211d'/%3E%3Cpath d='M20 12h15a13 13 0 0 1 0 26h-6v14h-9z' fill='%23df5b3f'/%3E%3Ccircle cx='34' cy='25' r='4' fill='%2317211d'/%3E%3Ccircle cx='46' cy='47' r='4' fill='%23fffcf4'/%3E%3C/svg%3E">
 <style>
-/* 配色與字體沿用 Tensift 的原始主題（米色紙），固定淺色，不跟隨系統深色模式。 */
+/* 配色與字體沿用 Tensift 的原始主題（米色紙）；系統深色時改用下方深色色票。
+   三張遊戲封面保留各遊戲自己的配色，兩種模式都一樣。 */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --paper: #f3f0e8;
   --paper-deep: #e9e4d8;
   --surface: #fffcf4;
@@ -31,6 +33,25 @@
   --lr-accent: #e85d2a;
   --serif: Georgia, "Times New Roman", "Noto Serif TC", serif;
   --sans: "Trebuchet MS", "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --card-shadow-hover: 0 24px 50px rgba(23, 33, 29, .18);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141a17;
+    --paper-deep: #1b221e;
+    --surface: #1f2723;
+    --ink: #ece7da;
+    --muted: #aab1a9;
+    --line: #3a433e;
+    --line-strong: #6b746d;
+    --accent: #df5b3f;
+    --accent-dark: #f08b6d;
+    --focus: #8ab8ea;
+    --grid-line: rgba(236, 231, 218, .035);
+    --tape: rgba(217, 199, 108, .42);
+    --shadow-high: 0 18px 45px rgba(0, 0, 0, .45);
+    --card-shadow-hover: 0 24px 50px rgba(0, 0, 0, .55);
+  }
 }
 * { box-sizing: border-box; }
 html { min-width: 320px; background: var(--paper); }
@@ -104,7 +125,7 @@ h1 {
 .game:hover,
 .game:focus-within {
   transform: translateY(-4px) rotate(0deg);
-  box-shadow: 0 24px 50px rgba(23, 33, 29, .18);
+  box-shadow: var(--card-shadow-hover);
 }
 .game::before {
   position: absolute;
@@ -245,6 +266,12 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .game, .game:nth-child(even), .game:hover, .game:focus-within { transform: none; transition: none; }
   .play { transition: none; }
+}
+/* 深色下 accent-dark 改成亮色文字用；「開始玩」的邊框、壓下陰影與 hover 底色另外指定深色（放在最後才蓋得過上面的規則） */
+@media (prefers-color-scheme: dark) {
+  .play { border-color: #ad3c26; box-shadow: 0 3px 0 #ad3c26; }
+  .game:hover .play { background: #ad3c26; }
+  .play:active { box-shadow: 0 1px 0 #ad3c26; }
 }
 </style>
 </head>
