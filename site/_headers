@@ -1,0 +1,9 @@
+# Cloudflare Pages 安全標頭。依 Harbor DeploymentHandbook 範本，只允許實際用到的外部來源：
+# Harbor 維護腳本（script）與其 runtime-config API（connect）。頁面樣式為內嵌 <style>，需要 'unsafe-inline'。
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://harbor-1wk.pages.dev; connect-src 'self' https://harbor-1wk.pages.dev; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin
